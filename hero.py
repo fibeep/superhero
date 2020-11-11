@@ -1,7 +1,7 @@
 from random import choice
 from ability import Ability
 from armor import Armor
-from weapons import Weapon
+from weapon import Weapon
 
 class Hero:
     # We want our hero to have a default "starting_health",
