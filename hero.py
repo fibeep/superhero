@@ -17,12 +17,6 @@ class Hero:
         self.abilities = list()
         self.armors = list()
     
-
-    def fight(self, opponent):
-        fighters = [opponent.name, self.name]
-        winner = choice(fighters)
-        print(f'{winner} is the winner!')
-
     def add_ability(self, ability):
         self.abilities.append(ability)
 
@@ -40,14 +34,53 @@ class Hero:
         if self.armors != []:
             for armor in self.armors:
                 total_block += armor.block()
-        return total_block - damage_amt
+            return total_block - damage_amt
+        else:
+            return total_block
 
     def take_damage(self, damage):
         injury = damage - self.defend(damage)
         self.current_health -= injury
 
 
+    def is_alive(self):
+        if self.current_health <= 0:
+            return False
+        else:
+            return True
+
+
+    def fight(self, opponent):
+            if (opponent.abilities == []) and (self.abilities == []):
+                print("Draw")
+    
+            else:
+                while self.current_health and opponent.current_health >= 0:
+                    opponent.take_damage(self.attack())
+                    self.take_damage(opponent.attack())
+                if self.is_alive() == True:
+                    print(f'{self.name} is the winner')
+                else:
+                    print(f'{opponent.name} is the winner')
+                    
+
 # ---------------------------- Testing ---------------------------
+
+hero1 = Hero("Wonder Woman")
+hero2 = Hero("Dumbledore")
+ability1 = Ability("Super Speed", 300)
+ability2 = Ability("Super Eyes", 130)
+ability3 = Ability("Wizard Wand", 80)
+ability4 = Ability("Wizard Beard", 20)
+hero1.add_ability(ability1)
+hero1.add_ability(ability2)
+hero2.add_ability(ability3)
+hero2.add_ability(ability4)
+hero1.fight(hero2)
+
+
+
+
 # if __name__ == "__main__":
 #     # If you run this file from the terminal
 #     # this block is executed.
@@ -82,17 +115,26 @@ class Hero:
 #     print(hero.attack())
 
 
-if __name__ == "__main__":
-    # If you run this file from the terminal
-    # this block of code is executed.
+# if __name__ == "__main__":
+#     # If you run this file from the terminal
+#     # this block of code is executed.
 
-    hero = Hero("Grace Hopper", 200)
-    shield = Armor("Shield", 50)
-    hero.add_armor(shield)
-    hero.take_damage(50)
-    hero.take_damage(50)
-    hero.take_damage(50)
-    hero.take_damage(50)
+#     hero = Hero("Grace Hopper", 200)
+#     shield = Armor("Shield", 50)
+#     hero.add_armor(shield)
+#     hero.take_damage(50)
+#     hero.take_damage(50)
+#     hero.take_damage(50)
+   
+#     print(hero.current_health)
 
+# if __name__ == "__main__":
+#     # If you run this file from the terminal
+#     # this block is executed.
 
-    print(hero.current_health)
+#     hero = Hero("Grace Hopper", 200)
+#     hero.take_damage(53)
+#     print(hero.current_health)
+#     print(hero.is_alive())
+#     hero.take_damage(15000)
+#     print(hero.is_alive())
