@@ -18,7 +18,15 @@ class Hero:
         self.abilities = list()
         self.armors = list()
         self.weapons = list()
+        self.deaths = 0
+        self.kills = 0
     
+    def add_kill(self, num_kills):
+        self.kills += num_kills
+
+    def add_death(self, num_deaths):
+        self.deaths += num_deaths
+
     def add_ability(self, ability):
         self.abilities.append(ability)
 
@@ -65,8 +73,12 @@ class Hero:
                     self.take_damage(opponent.attack())
                 if self.is_alive() == True:
                     print(f'{self.name} is the winner')
+                    self.add_kill += 1
+                    opponent.add_death += 1
                 else:
                     print(f'{opponent.name} is the winner')
+                    opponent.add_kill += 1
+                    self.add_death +=1
                     
 
 # ---------------------------- Testing ---------------------------
@@ -79,6 +91,7 @@ if __name__ == "__main__":
     hero.add_weapon(weapon)
     
     print(hero.attack())
+    
 
 # hero1 = Hero("Wonder Woman")
 # hero2 = Hero("Dumbledore")
